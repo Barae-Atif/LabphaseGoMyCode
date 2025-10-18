@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Alza Best</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" style="background-color:#fefff7 ;">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="./logo.jpg" style="scale: 1.5;" alt="Alza Best" class="brand-logo">
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding:40px 20px">
+    <h2>Checkout</h2>
+    <div class="checkout-grid" style="display:grid;grid-template-columns:1fr 380px;gap:24px;margin-top:18px">
+      <section style="background:var(--white);padding:18px;border-radius:12px">
+        <h3>Shipping information</h3>
+        <form id="checkoutForm" style="display:grid;gap:10px;margin-top:12px">
+          <input name="name" placeholder="Full name" required style="padding:10px;border-radius:8px;border:1px solid #eaeaea">
+          <input name="email" type="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid #eaeaea">
+          <input name="address" placeholder="Address" required style="padding:10px;border-radius:8px;border:1px solid #eaeaea">
+          <div style="display:flex;gap:8px">
+            <input name="city" placeholder="City" required style="flex:1;padding:10px;border-radius:8px;border:1px solid #eaeaea">
+            <input name="zip" placeholder="ZIP" required style="width:120px;padding:10px;border-radius:8px;border:1px solid #eaeaea">
+          </div>
+          <h4>Payment</h4>
+          <select name="method" style="padding:10px;border-radius:8px;border:1px solid #eaeaea">
+            <option>Card</option>
+            <option>PayPal</option>
+          </select>
+          <button type="submit" class="btn-primary">Place Order</button>
+        </form>
+      </section>
+
+      <aside style="background:var(--white);padding:18px;border-radius:12px">
+        <h3>Order summary</h3>
+        <div id="summaryBody" style="margin-top:12px"></div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;font-weight:700">
+          <span>Total</span>
+          <span id="summaryTotal">$0.00</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+  // read cart from localStorage and populate summary
+  const CART_KEY = 'alzabest_cart_v1';
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  const summaryBody = document.getElementById('summaryBody');
+  const summaryTotal = document.getElementById('summaryTotal');
+
+  function formatPrice(n){return '$' + n.toFixed(2)}
+
+  if(cart.length === 0){
+    summaryBody.innerHTML = '<p class="muted">No items in cart</p>';
+  } else {
+    let total = 0;
+    cart.forEach(i=>{
+      total += i.price * i.qty;
+      const row = document.createElement('div');
+      row.style.display='flex';row.style.justifyContent='space-between';row.style.padding='8px 0';
+      row.innerHTML = `<span>${i.title} × ${i.qty}</span><span>${formatPrice(i.price*i.qty)}</span>`;
+      summaryBody.appendChild(row);
+    });
+    summaryTotal.textContent = formatPrice(total);
+  }
+
+  document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    // very simple simulation of placing order
+    alert('Order placed! Thank you.');
+    localStorage.removeItem(CART_KEY);
+    window.location.href = 'index.html';
+  });
+  </script>
+</body>
+</html>

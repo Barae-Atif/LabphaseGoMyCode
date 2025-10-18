@@ -1,0 +1,294 @@
+<!-- file: index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alza Best Electronics — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" style="background-color: #fdfef6;">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="./logo.jpg" alt="Alza Best" class="brand-logo" width="120" height="40">
+       
+      </div>
+
+      <nav class="main-nav">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#categories" class="nav-link">Categories</a>
+        <a href="#featured" class="nav-link">Featured</a>
+        <a href="checkout.html" class="nav-link">Checkout</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-btn" aria-label="Search">🔍</button>
+        <button class="icon-btn cart-btn" id="openCartBtn" aria-label="Cart">🛒<span id="cartCount" class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <h1 class="headline">Electronics that move you forward</h1>
+          <p class="subhead">Latest laptops, smartphones and accessories — curated with care. Green tech, white design.</p>
+          <a class="btn-primary" href="#featured">Shop Featured</a>
+        </div>
+        <div class="hero-media">
+          <img src="./image/hero.jpg" alt="hero"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories" class="categories container">
+      <h2 class="section-title">Shop by category</h2>
+      <div class="category-grid">
+        <button class="category-card" data-cat="laptops"> 
+          <div class="cat-icon">💻</div>
+          <h3>Laptops</h3>
+        </button>
+        <button class="category-card" data-cat="phones"> 
+          <div class="cat-icon">📱</div>
+          <h3>Smartphones</h3>
+        </button>
+        <button class="category-card" data-cat="audio"> 
+          <div class="cat-icon">🎧</div>
+          <h3>Audio</h3>
+        </button>
+        <button class="category-card" data-cat="accessories"> 
+          <div class="cat-icon">🔌</div>
+          <h3>Accessories</h3>
+        </button>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="featured" class="products container">
+      <h2 class="section-title">Featured products</h2>
+      <div class="filters">
+        <label>Filter: </label>
+        <select id="filterSelect">
+          <option value="all">All</option>
+          <option value="laptops">Laptops</option>
+          <option value="phones">Smartphones</option>
+          <option value="audio">Audio</option>
+          <option value="accessories">Accessories</option>
+        </select>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Product cards are injected by JS -->
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter container">
+      <div class="newsletter-card">
+        <h3>Get launch updates & exclusive deals</h3>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button class="btn-outline">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- CART DRAWER -->
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="closeCartBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="cart-body" id="cartItems">
+      <p class="empty">Your cart is empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="totals">
+        <span>Total</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <div class="cart-actions">
+        <a href="checkout.html" class="btn-primary btn-block">Checkout</a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="backdrop" id="backdrop"></div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="./logo.jpg" alt="logo" class="footer-logo" width="100" height="35">
+        <p class="footer-tagline">Green • White • White-grey design</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">📱</a>
+          <a href="#" aria-label="Twitter">💻</a>
+          <a href="#" aria-label="Instagram">📷</a>
+        </div>
+      </div>
+      <div class="footer-nav">
+        <h4 class="footer-heading">Shop</h4>
+        <ul class="footer-links">
+          <li><a href="#">Laptops</a></li>
+          <li><a href="#">Phones</a></li>
+          <li><a href="#">Audio</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav">
+        <h4 class="footer-heading">Customer</h4>
+        <ul class="footer-links">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-email">hello@alzabest.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">© 2025 Alza Best Electronics</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // Simple client-side product data + cart implementation
+  const PRODUCTS = [
+    { id: 'p1', title: 'Alza Laptop Pro', price: 999.99, category: 'laptops', img: 'https://electrosalam.ma/cdn/shop/files/Background.png?v=1759082694&width=2048' },
+    { id: 'p2', title: 'Alza Smartphone X', price: 699.99, category: 'phones', img: 'https://i5.walmartimages.com/seo/Apple-iPhone-X-64GB-Unlocked-GSM-Phone-w-Dual-12MP-Camera-Space-Gray-B-Grade-Used_15c2b968-bb85-41a4-9292-b017f78fe797.a66ebbf32b6d53b6d6eb14c47434ac04.jpeg' },
+    { id: 'p3', title: 'Alza Headphones', price: 199.99, category: 'audio', img: 'https://i5.walmartimages.com/seo/VILINICE-Noise-Cancelling-Headphones-Wireless-Bluetooth-Over-Ear-Headphones-with-Microphone-Black-Q8_b994b99c-835f-42fc-8094-9f6be0f9273b.be59955399cdbd1c25011d4a4251ba9b.jpeg' },
+    { id: 'p4', title: 'USB-C Charger', price: 29.99, category: 'accessories', img: 'https://www.electrozenata.ma/wp-content/uploads/2024/06/Chargeur-Apple-USB-C-20W-pour-iPhone-3.webp' }
+  ];
+
+  // cart persisted in localStorage
+  const CART_KEY = 'alzabest_cart_v1';
+  let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+  const productGrid = document.getElementById('productGrid');
+  const filterSelect = document.getElementById('filterSelect');
+  const cartCount = document.getElementById('cartCount');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const backdrop = document.getElementById('backdrop');
+  const cartItemsEl = document.getElementById('cartItems');
+  const cartTotalEl = document.getElementById('cartTotal');
+
+  function formatPrice(n){ return '$' + n.toFixed(2); }
+
+  function renderProducts(filter = 'all'){
+    productGrid.innerHTML = '';
+    const list = PRODUCTS.filter(p => filter === 'all' ? true : p.category === filter);
+    list.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.title}">
+        <div class="product-info">
+          <h4>${p.title}</h4>
+          <div class="meta">
+            <span class="price">${formatPrice(p.price)}</span>
+            <button class="btn-small add-to-cart" data-id="${p.id}">Add to cart</button>
+          </div>
+        </div>
+      `;
+      productGrid.appendChild(card);
+    });
+  }
+
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartUI();
+  }
+
+  function addToCart(id){
+    const item = PRODUCTS.find(p => p.id === id);
+    if(!item) return;
+    const existing = cart.find(c => c.id === id);
+    if(existing) existing.qty += 1;
+    else cart.push({ id: item.id, title: item.title, price: item.price, qty: 1 });
+    saveCart();
+    openCart();
+  }
+
+  function removeFromCart(id){
+    cart = cart.filter(c => c.id !== id);
+    saveCart();
+  }
+
+  function changeQty(id, delta){
+    const it = cart.find(c => c.id === id);
+    if(!it) return;
+    it.qty += delta;
+    if(it.qty < 1) removeFromCart(id);
+    saveCart();
+  }
+
+  function updateCartUI(){
+    cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);
+    if(cart.length === 0){
+      cartItemsEl.innerHTML = '<p class="empty">Your cart is empty.</p>';
+      cartTotalEl.textContent = '$0.00';
+      return;
+    }
+    cartItemsEl.innerHTML = '';
+    cart.forEach(i => {
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+      row.innerHTML = `
+        <div class="row-left">
+          <div class="cart-title">${i.title}</div>
+          <div class="cart-meta">${formatPrice(i.price)} × ${i.qty}</div>
+        </div>
+        <div class="row-right">
+          <button class="qty-btn" data-id="${i.id}" data-d="-">−</button>
+          <button class="qty-btn" data-id="${i.id}" data-d="+">+</button>
+        </div>
+      `;
+      cartItemsEl.appendChild(row);
+    });
+    const total = cart.reduce((s,i)=>s + i.price*i.qty,0);
+    cartTotalEl.textContent = formatPrice(total);
+  }
+
+  function openCart(){
+    cartDrawer.classList.add('open');
+    backdrop.classList.add('visible');
+    cartDrawer.setAttribute('aria-hidden','false');
+  }
+  function closeCart(){
+    cartDrawer.classList.remove('open');
+    backdrop.classList.remove('visible');
+    cartDrawer.setAttribute('aria-hidden','true');
+  }
+
+  // event delegates
+  document.addEventListener('click', (e) =>{
+    if(e.target.matches('.add-to-cart')) addToCart(e.target.dataset.id);
+    if(e.target.matches('#openCartBtn')) openCart();
+    if(e.target.matches('#closeCartBtn')) closeCart();
+    if(e.target.matches('.qty-btn')) changeQty(e.target.dataset.id, e.target.dataset.d === '+' ? 1 : -1);
+    if(e.target === backdrop) closeCart();
+  });
+
+  filterSelect.addEventListener('change', (e)=> renderProducts(e.target.value));
+
+  // initialize
+  renderProducts();
+  updateCartUI();
+
+  // Save cart before leaving (also used by checkout)
+  window.addEventListener('beforeunload', saveCart);
+  </script>
+</body>
+</html>
+
+
+<!-- file: styles.css -->
